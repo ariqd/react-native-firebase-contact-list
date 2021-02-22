@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../pages/Home';
 import AddContact from '../pages/AddContact';
+import DetailContact from '../pages/DetailContact';
 
 const Stack = createStackNavigator();
 
@@ -14,6 +15,7 @@ const Router = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen name="Add Contact" component={AddContact} />
+      <Stack.Screen name="Contact Details" component={DetailContact} />
     </Stack.Navigator>
   );
 };

@@ -23,7 +23,7 @@ const Home = (props) => {
       setContacts([]);
       setContactKeys([]);
     };
-  }, [setContacts, setContactKeys]);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -35,7 +35,12 @@ const Home = (props) => {
         {contactKeys.length > 0 ? (
           contactKeys.map((key) => {
             return (
-              <CardContact key={key} contact={contacts[key]} id={key} />  
+              <CardContact
+                key={key}
+                contact={contacts[key]}
+                id={key}
+                {...props}
+              />
             );
           })
         ) : (
