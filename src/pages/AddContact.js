@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import InputData from '../components/InputData';
+import FIREBASE from '../config/Firebase';
 
 const AddContact = () => {
   const [state, setState] = useState({name: '', phone: '', address: ''});
@@ -9,8 +10,22 @@ const AddContact = () => {
     setState((prevState) => ({...prevState, [stateName]: value}));
 
   const onSubmit = () => {
-    console.log('submitted');
-    console.log(state);
+    if (state.name && state.phone && state.address) {
+      const contactsRef = FIREBASE.database().ref('contacts');
+
+      contactsRef
+        .push(state)
+        .then((data) => {
+          console.log(data);
+          Alert.alert('Success!', 'Your contact has been saved.');
+          props.navigation.replace('Home');
+        })
+        .catch((err) => {
+          console.log('Error', err);
+        });
+    } else {
+      Alert.alert('Error', 'Empty field(s) detected. Please fill all fields');
+    }
   };
 
   return (

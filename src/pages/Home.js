@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   buttonAdd: {
     padding: 20,
     backgroundColor: '#000',
-    borderRadius: 30,
+    borderRadius: 50,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
