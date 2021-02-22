@@ -22,11 +22,11 @@ const DetailContact = (props) => {
   return (
     <View style={styles.container}>
       <Text style={{color: 'gray'}}>Name:</Text>
-      <Text style={styles.text}>{contact.name}</Text>
+      <Text style={styles.text}>{contact?.name}</Text>
       <Text style={{color: 'gray'}}>Phone:</Text>
-      <Text style={styles.text}>{contact.phone}</Text>
+      <Text style={styles.text}>{contact?.phone}</Text>
       <Text style={{color: 'gray'}}>Address:</Text>
-      <Text style={styles.text}>{contact.address}</Text>
+      <Text style={styles.text}>{contact?.address}</Text>
     </View>
   );
 };

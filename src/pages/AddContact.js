@@ -3,7 +3,7 @@ import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import InputData from '../components/InputData';
 import FIREBASE from '../config/Firebase';
 
-const AddContact = () => {
+const AddContact = (props) => {
   const [state, setState] = useState({name: '', phone: '', address: ''});
 
   const onChange = (stateName, value) =>

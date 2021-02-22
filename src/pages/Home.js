@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Text, StyleSheet, View, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Alert,
+  ScrollView,
+} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import FIREBASE from '../config/Firebase';
@@ -10,6 +17,15 @@ const Home = (props) => {
   const [contactKeys, setContactKeys] = useState([]);
 
   useEffect(() => {
+    fetchData();
+
+    return () => {
+      setContacts([]);
+      setContactKeys([]);
+    };
+  }, []);
+
+  const fetchData = () => {
     FIREBASE.database()
       .ref('contacts')
       .once('value', (querySnapshot) => {
@@ -19,34 +35,60 @@ const Home = (props) => {
         setContacts(contactItem);
         setContactKeys(Object.keys(contactItem));
       });
-    return () => {
-      setContacts([]);
-      setContactKeys([]);
-    };
-  }, []);
+  };
+
+  const removeData = (id) => {
+    Alert.alert(
+      'Warning',
+      'Are you sure to delete this contact?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () => {
+            FIREBASE.database()
+              .ref('contacts/' + id)
+              .remove();
+
+            Alert.alert('Success', 'Contact successfully deleted');
+
+            props.navigation.replace('Home');
+          },
+        },
+      ],
+      {cancelable: false},
+    );
+  };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>All Contacts</Text>
-        <View style={styles.garis} />
-      </View>
-      <View style={styles.contactList}>
-        {contactKeys.length > 0 ? (
-          contactKeys.map((key) => {
-            return (
-              <CardContact
-                key={key}
-                contact={contacts[key]}
-                id={key}
-                {...props}
-              />
-            );
-          })
-        ) : (
-          <Text>No contacts found</Text>
-        )}
-      </View>
+    <>
+      <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>All Contacts</Text>
+          <View style={styles.garis} />
+        </View>
+        <View style={styles.contactList}>
+          {contactKeys.length > 0 ? (
+            contactKeys.map((key) => {
+              return (
+                <CardContact
+                  key={key}
+                  contact={contacts[key]}
+                  id={key}
+                  {...props}
+                  removeData={removeData}
+                />
+              );
+            })
+          ) : (
+            <Text>No contacts found</Text>
+          )}
+        </View>
+      </ScrollView>
       <View style={styles.buttonWrapper}>
         <TouchableOpacity
           style={styles.buttonAdd}
@@ -54,13 +96,14 @@ const Home = (props) => {
           <FontAwesomeIcon icon={faPlus} size={25} color="white" />
         </TouchableOpacity>
       </View>
-    </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
+    paddingBottom: 100,
   },
   header: {
     paddingHorizontal: 30,

@@ -3,7 +3,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faPen, faTimes} from '@fortawesome/free-solid-svg-icons';
 
-const CardContact = ({id, contact, navigation}) => {
+const CardContact = ({id, contact, navigation, removeData}) => {
   return (
     <TouchableOpacity
       style={styles.container}
@@ -14,7 +14,12 @@ const CardContact = ({id, contact, navigation}) => {
       </View>
       <View style={styles.icons}>
         <FontAwesomeIcon icon={faPen} size={20} style={{marginRight: 15}} />
-        <FontAwesomeIcon icon={faTimes} color="gray" size={25} />
+        <FontAwesomeIcon
+          icon={faTimes}
+          color="gray"
+          size={25}
+          onPress={() => removeData(id)}
+        />
       </View>
     </TouchableOpacity>
   );
