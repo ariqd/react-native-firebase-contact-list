@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
   buttonAdd: {
     padding: 20,
-    backgroundColor: 'skyblue',
+    backgroundColor: '#000',
     borderRadius: 30,
     shadowColor: '#000',
     shadowOffset: {
