@@ -13,7 +13,12 @@ const CardContact = ({id, contact, navigation, removeData}) => {
         <Text style={styles.phone}>Phone: {contact.phone}</Text>
       </View>
       <View style={styles.icons}>
-        <FontAwesomeIcon icon={faPen} size={20} style={{marginRight: 15}} />
+        <FontAwesomeIcon
+          icon={faPen}
+          size={20}
+          style={{marginRight: 15}}
+          onPress={() => navigation.navigate('Edit Contact', {id})}
+        />
         <FontAwesomeIcon
           icon={faTimes}
           color="gray"
