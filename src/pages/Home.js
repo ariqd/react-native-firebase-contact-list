@@ -3,12 +3,14 @@ import {Text, StyleSheet, View, TouchableOpacity} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 
-const Home = () => {
+const Home = (props) => {
   return (
     <View style={styles.container}>
       <Text> Halaman Home </Text>
       <View style={styles.buttonWrapper}>
-        <TouchableOpacity style={styles.buttonAdd}>
+        <TouchableOpacity
+          style={styles.buttonAdd}
+          onPress={() => props.navigation.navigate('Add Contact')}>
           <FontAwesomeIcon icon={faPlus} size={25} color="white" />
         </TouchableOpacity>
       </View>
