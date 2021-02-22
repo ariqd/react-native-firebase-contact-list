@@ -1,16 +1,26 @@
 import React from 'react';
 import {StyleSheet, Text, TextInput} from 'react-native';
 
-const InputData = ({label, placeholder, keyboardType, isTextArea}) => {
+const InputData = ({
+  label,
+  placeholder,
+  keyboardType,
+  isTextArea,
+  onChangeText,
+  stateName,
+  value,
+}) => {
   return (
     <>
       <Text style={styles.label}>{label}:</Text>
       <TextInput
         placeholder={placeholder}
         style={isTextArea ? styles.textInputArea : styles.textInput}
-        keyboardType={keyboardType ? keyboardType : 'text'}
+        keyboardType={keyboardType ? keyboardType : 'default'}
         multiline={isTextArea}
         numberOfLines={isTextArea && 4}
+        value={value}
+        onChangeText={(text) => onChangeText(stateName, text)}
       />
     </>
   );

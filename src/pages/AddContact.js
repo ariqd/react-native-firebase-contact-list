@@ -1,19 +1,45 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import InputData from '../components/InputData';
 
 const AddContact = () => {
+  const [state, setState] = useState({name: '', phone: '', address: ''});
+
+  const onChange = (stateName, value) =>
+    setState((prevState) => ({...prevState, [stateName]: value}));
+
+  const onSubmit = () => {
+    console.log('submitted');
+    console.log(state);
+  };
+
   return (
     <View style={styles.container}>
-      <InputData label="Contact Name" placeholder="Enter contact name" />
+      <InputData
+        label="Contact Name"
+        placeholder="Enter contact name"
+        onChangeText={onChange}
+        value={state.name}
+        stateName="name"
+      />
       <InputData
         label="Phone Number"
         placeholder="Enter Phone Number"
         keyboardType="number-pad"
+        onChangeText={onChange}
+        value={state.phone}
+        stateName="phone"
       />
-      <InputData label="Address" placeholder="Enter Address" isTextArea />
+      <InputData
+        label="Address"
+        placeholder="Enter Address"
+        isTextArea
+        onChangeText={onChange}
+        value={state.address}
+        stateName="address"
+      />
 
-      <TouchableOpacity style={styles.buttonSubmit}>
+      <TouchableOpacity style={styles.buttonSubmit} onPress={() => onSubmit()}>
         <Text style={styles.buttonSubmitText}>Submit</Text>
       </TouchableOpacity>
     </View>
